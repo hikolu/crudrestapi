@@ -1,46 +1,37 @@
-package com.hikolu.crudrestapi.dao;
+package com.hikolu.crudrestapi.service.impl;
 
 import com.hikolu.crudrestapi.entity.Driver;
-import jakarta.persistence.EntityManager;
-import jakarta.persistence.TypedQuery;
+import com.hikolu.crudrestapi.repository.DriversDAO;
+import com.hikolu.crudrestapi.service.DriversService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Repository;
+import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
-@Repository
-public class DriversDAOImpl implements DriversDAO {
+@Service
+public class DriversServiceImpl implements DriversService {
 
-    // define a field for entity manager
-    private final EntityManager entityManager;
+    // define a field for the dao
+    private DriversDAO dao;
 
-    // define constructor
+    // define constructors
     @Autowired
-    public DriversDAOImpl(EntityManager entityManager) {
-
-        this.entityManager = entityManager;
+    public DriversServiceImpl(DriversDAO dao) {
+        this.dao = dao;
     }
 
     // returns a list of all drivers
     @Override
     public List<Driver> findAll() {
-
-        TypedQuery<Driver> query = entityManager.createQuery("from Driver", Driver.class);
-
-        List<Driver> result = query.getResultList();
-
-        return result;
+        return dao.findAll();
     }
 
     // returns a single driver based on the id
     // TODO add Exception Handling for unexpected id
     @Override
     public Driver findById(int id) {
-
-        Driver driver = entityManager.find(Driver.class, id);
-
-        return driver;
+        return dao.findById(id);
     }
 
     // performs update or delete on the given driver and the returns updated/added data
@@ -50,10 +41,7 @@ public class DriversDAOImpl implements DriversDAO {
     @Override
     @Transactional
     public Driver save(Driver driver) {
-
-        Driver dbDriver = entityManager.merge(driver);
-
-        return dbDriver;
+        return dao.save(driver);
     }
 
     // deletes a driver based on his id
@@ -61,10 +49,8 @@ public class DriversDAOImpl implements DriversDAO {
 
     // TODO add Exception Handling for unexpected id
     @Override
+    @Transactional
     public void deleteById(int id) {
-
-        Driver driver = entityManager.find(Driver.class, id);
-
-        entityManager.remove(driver);
+        dao.deleteById(id);
     }
 }

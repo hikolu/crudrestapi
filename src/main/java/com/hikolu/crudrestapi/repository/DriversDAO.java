@@ -1,4 +1,4 @@
-package com.hikolu.crudrestapi.dao;
+package com.hikolu.crudrestapi.repository;
 
 import com.hikolu.crudrestapi.entity.Driver;
 
