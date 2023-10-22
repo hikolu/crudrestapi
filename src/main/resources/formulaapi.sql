@@ -1,6 +1,3 @@
-CREATE DATABASE IF NOT EXISTS `formulaapi`;
-USE `formulaapi`;
-
 --
 -- Table structure for table `drivers`
 --
