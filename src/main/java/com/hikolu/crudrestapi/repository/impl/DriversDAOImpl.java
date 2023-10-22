@@ -13,7 +13,7 @@ import java.util.List;
 public class DriversDAOImpl implements DriversDAO {
 
     // define a field for entity manager
-    private final EntityManager entityManager;
+    private EntityManager entityManager;
 
     @Autowired
     public DriversDAOImpl(EntityManager entityManager) {
@@ -26,25 +26,19 @@ public class DriversDAOImpl implements DriversDAO {
 
         TypedQuery<Driver> query = entityManager.createQuery("from Driver", Driver.class);
 
-        List<Driver> result = query.getResultList();
-
-        return result;
+        return query.getResultList();
     }
 
     @Override
     public Driver findById(int id) {
 
-        Driver driver = entityManager.find(Driver.class, id);
-
-        return driver;
+        return entityManager.find(Driver.class, id);
     }
 
     @Override
     public Driver save(Driver driver) {
 
-        Driver dbDriver = entityManager.merge(driver);
-
-        return dbDriver;
+        return entityManager.merge(driver);
     }
 
     @Override

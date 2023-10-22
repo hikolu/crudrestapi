@@ -28,7 +28,6 @@ public class DriversServiceImpl implements DriversService {
     }
 
     // returns a single driver based on the id
-    // TODO add Exception Handling for unexpected id
     @Override
     public Driver findById(int id) {
         return dao.findById(id);
@@ -46,8 +45,6 @@ public class DriversServiceImpl implements DriversService {
 
     // deletes a driver based on his id
     // also needs @Transactional as above
-
-    // TODO add Exception Handling for unexpected id
     @Override
     @Transactional
     public void deleteById(int id) {
